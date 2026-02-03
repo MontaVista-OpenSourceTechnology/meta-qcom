@@ -10,6 +10,9 @@ inputs:
   gh_token:
     description: "Github token. It's required to download artifacts from the workflow"
     required: true
+  kernel:
+    description: "Extra strings for the kernel part of the build URL"
+    required: true
   prefix:
     description: "Prefix for the compressed file that is uploaded as workflow artifact"
     default: testjobs
@@ -67,7 +70,7 @@ runs:
           fi
           echo "IMAGE_FILE_NAME=${IMAGE_TYPE}-${{ inputs.machine }}.rootfs.qcomflash.tar.gz" >> "${VARS_OUT_PATH}/gh-variables.ini"
           export BUILD_URL=""
-          export BUILD_URL_FILE="$GITHUB_WORKSPACE/build-url_${{ inputs.machine }}_${{ inputs.distro_name }}/build-url_${{ inputs.machine }}_${{ inputs.distro_name }}"
+          export BUILD_URL_FILE="$GITHUB_WORKSPACE/build-url_${{ inputs.machine }}_${{ inputs.distro_name }}${{ inputs.kernel }}/build-url_${{ inputs.machine }}_${{ inputs.distro_name }}${{ inputs.kernel }}"
           echo "${BUILD_URL_FILE}"
           if [ -f "$BUILD_URL_FILE" ]; then
               export BUILD_URL=$(cat "${BUILD_URL_FILE}")

@@ -30,6 +30,12 @@ jobs:
         distro:
           - name: poky-altcfg
           - name: qcom-distro
+        kernel:
+          - ""
+          - +linux-qcom-6.18
+        exclude:
+          - distro: poky-altcfg
+            kernel: "+linux-qcom-6.18"
     steps:
       - uses: actions/checkout@v4
         with:
