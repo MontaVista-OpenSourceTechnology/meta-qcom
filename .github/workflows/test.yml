@@ -84,6 +84,11 @@ jobs:
         with:
           name: ${{ matrix.target.artifact }}
 
+      - name: "List files"
+        run: |
+          echo $GITHUB_WORKSPACE
+          ls -R $GITHUB_WORKSPACE
+
       - name: Submit ${{ matrix.target.name }}
         timeout-minutes: 20
         id: submit
