@@ -86,13 +86,14 @@ runs:
           echo "ROOTFS_URL=${BUILD_URL}/${{ inputs.distro_name }}${{ inputs.kernel }}/${{ inputs.machine }}/${IMAGE_TYPE}-${{ inputs.machine }}.rootfs.qcomflash.tar.gz" >> "${VARS_OUT_PATH}/gh-variables.ini"
 
           if [ "${{ inputs.machine }}" = "qcom-armv8a" ]; then
-              echo "ROOTFS_IMG_FILE=${IMAGE_TYPE}-qcom-armv8a.rootfs.ext4" >> "${VARS_OUT_PATH}/gh-variables.ini"
-              cp "${VARS_OUT_PATH}/gh-variables.ini" dragonboard-410c.ini
-              echo "DEVICE_TYPE=dragonboard-410c" >> dragonboard-410c.ini
-              echo "BOOT_IMG_FILE=boot-apq8016-sbc-qcom-armv8a.img" >> dragonboard-410c.ini
-              echo "BUILD_OS=${{ inputs.distro_name }}${{ inputs.kernel }}/" >> dragonboard-410c.ini
-              cat dragonboard-410c.ini
-              lava-test-plans --dry-run --variables dragonboard-410c.ini --test-plan "${GITHUB_REPOSITORY#*/}/${{ inputs.distro_name }}/${{ inputs.testplan }}" --device-type "projects/${GITHUB_REPOSITORY#*/}/devices/dragonboard-410c" --dry-run-path "${JOBS_OUT_PATH}/dragonboard-410c-${{ inputs.distro_name }}${{ inputs.kernel }}-${{ inputs.testplan }}" || true
+              #echo "ROOTFS_IMG_FILE=${IMAGE_TYPE}-qcom-armv8a.rootfs.ext4" >> "${VARS_OUT_PATH}/gh-variables.ini"
+              #cp "${VARS_OUT_PATH}/gh-variables.ini" dragonboard-410c.ini
+              #echo "DEVICE_TYPE=dragonboard-410c" >> dragonboard-410c.ini
+              #echo "BOOT_IMG_FILE=boot-apq8016-sbc-qcom-armv8a.img" >> dragonboard-410c.ini
+              #echo "BUILD_OS=${{ inputs.distro_name }}${{ inputs.kernel }}/" >> dragonboard-410c.ini
+              #cat dragonboard-410c.ini
+              #lava-test-plans --dry-run --variables dragonboard-410c.ini --test-plan "${GITHUB_REPOSITORY#*/}/${{ inputs.distro_name }}/${{ inputs.testplan }}" --device-type "projects/${GITHUB_REPOSITORY#*/}/devices/dragonboard-410c" --dry-run-path "${JOBS_OUT_PATH}/dragonboard-410c-${{ inputs.distro_name }}${{ inputs.kernel }}-${{ inputs.testplan }}" || true
+
               cp "${VARS_OUT_PATH}/gh-variables.ini" dragonboard-820c.ini
               echo "BOOT_IMG_FILE=boot-apq8096-db820c-qcom-armv8a.img" >> dragonboard-820c.ini
               echo "DEVICE_TYPE=dragonboard-820c" >> dragonboard-820c.ini
