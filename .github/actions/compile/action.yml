@@ -118,6 +118,7 @@ runs:
 
     - name: Upload artifacts to S3 bucket
       uses: qualcomm-linux/upload-private-artifact-action@aws-v3
+      id: upload_s3_artifacts
       with:
         path: ./uploads
         destination: ${{ github.repository_owner }}/${{ github.event.repository.name }}/${{ github.run_id }}-${{ github.run_attempt }}/
@@ -127,6 +128,7 @@ runs:
       shell: bash
       id: print-output
       run: |
+        echo "S3 URL: ${{ steps.upload_s3_artifacts.outputs.url}}"
         KERNEL_DIRNAME="${{ inputs.kernel_dirname }}"
         BUILDNAME="${{ inputs.machine }}_${{ inputs.distro_name }}${KERNEL_DIRNAME}"
         FILENAME="build-url_${BUILDNAME}"
