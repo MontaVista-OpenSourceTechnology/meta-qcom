@@ -22,11 +22,6 @@ repos:
     layers:
       .: disabled
 
-  meta-yocto:
-    url: https://git.yoctoproject.org/meta-yocto
-    layers:
-      meta-poky:
-
 local_conf_header:
   base: |
     CONF_VERSION = "2"
