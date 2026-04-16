@@ -48,7 +48,7 @@ See `conf/machine` for the complete list of supported devices.
 
 All contemporary boards are supported by a single qcom-armv8a machine. It can be
 used instead of using the per-board configuration file. In order to enable
-support for the particular device extend the qcom-armv8a.conf file .
+support for the particular device extend the qcom-armv8a.conf file.
 
 ## Quick build
 
@@ -107,7 +107,7 @@ to download and compile QDL for your platform:
    make
    ```
 
-As QDL tool requires raw USB access, so to able to run it from non-root user
+As QDL tool requires raw USB access, to be able to run it as a non-root user
 create an appropriate `udev` rule by following steps described in
 [Update udev rules](https://docs.qualcomm.com/bundle/publicresource/topics/80-70014-254/flash_images_unregistered.html#update-udev-rules)
 
@@ -135,7 +135,7 @@ Make sure that ModemManager is not running, disable it if necessary.
    [217664.921039] usb 3-1.1.4: FTDI Serial Device converter attached to ttyUSB0
    ```
 
-2. Use your favorite serial comminication program to access the console, such
+2. Use your favorite serial communication program to access the console, such
    as minicom, picocom, putty etc. Baud rate should be 115200:
 
    ```bash
