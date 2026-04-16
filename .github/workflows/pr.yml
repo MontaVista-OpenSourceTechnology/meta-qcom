@@ -7,9 +7,8 @@ on:
       - master
       - wrynose
     paths-ignore:
-      - 'README.md'
-      - 'README'
-      - 'SECURITY.md'
+      - '**/*.md'
+      - '.github/.markdownlint.yaml'
 
 permissions:
   checks: write
