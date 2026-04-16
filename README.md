@@ -37,7 +37,7 @@ for the implementation details.
 
 - **master:** Primary development branch, with focus on upstream support and
   compatibility with the most recent Yocto Project release.
-- **all stable branch up until styhead:** Legacy branches maintained by Linaro,
+- **all stable branches up until styhead:** Legacy branches maintained by Linaro,
   prior to the migration to [Qualcomm-linux](https://github.com/qualcomm-linux).
 
 ## Machine Support
@@ -83,7 +83,7 @@ For a manual build without KAS, refer to the [Yocto Project Quick Build](https:/
 
 ### Build QDL tool
 
-QDL tool communicates with USB devices of PID:VID `05c6:9008` and uploads a
+QDL tool communicates with USB devices of VID:PID `05c6:9008` and uploads a
 flash loader, which is then used for flashing images. Follow the steps below
 to download and compile QDL for your platform:
 
@@ -181,8 +181,8 @@ For some useful guidelines when submitting patches, please refer to:
 
 Pull requests will be discussed within the GitHub pull-request infrastructure.
 
-Branch **kirkstone** is not open for direct contributions, please raise an issue
-with the suggested change instead.
+Branch **kirkstone** is not open for direct contributions, please raise an
+issue with the suggested change instead.
 
 ### Qualcomm Internal
 
