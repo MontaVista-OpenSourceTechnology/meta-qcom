@@ -24,6 +24,10 @@ on:
         required: false
         type: string
         description: "Suffix for the distro name"
+      lava_test_plans_ref:
+        type: string
+        description: "Ref in lava-test-plans repository: commit, tag or branch"
+        required: true
     outputs:
       summary_id:
         description: "ID of the test summary artifact"
@@ -53,6 +57,7 @@ jobs:
           prefix: boottest
           project: "meta-qcom"
           testplan: "${{ inputs.distro_name }}/boot"
+          ref: ${{ inputs.lava_test_plans_ref }}
 
       - name: Print output ID
         env:
@@ -176,6 +181,7 @@ jobs:
           prefix: premerge
           project: "meta-qcom"
           testplan: "${{ inputs.distro_name }}/pre-merge"
+          ref: ${{ inputs.lava_test_plans_ref }}
 
       - name: Print output ID
         env:
