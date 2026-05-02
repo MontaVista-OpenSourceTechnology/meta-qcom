@@ -1,1 +1,1 @@
-PACKAGECONFIG:append = " camera"
+PACKAGECONFIG:append = " camera camera-apps"
