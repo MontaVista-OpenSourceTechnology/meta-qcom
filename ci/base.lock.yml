@@ -9,7 +9,7 @@ overrides:
         meta-arm:
             commit: d987a5945802dcbbc06be91a0d34f00431ea840e
         meta-openembedded:
-            commit: d2e6069771e435231a220a8ecac20c0e7ceff037
+            commit: 335045d3fb440cbb6de0716ffd7dd043bbd3f6ad
         meta-virtualization:
             commit: 052241689a0c419d13e15e83e7ad65dd16fc8ffd
         meta-audioreach:
