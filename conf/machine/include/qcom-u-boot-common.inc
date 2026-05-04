@@ -6,6 +6,8 @@
 UBOOT_CONFIG ?= ""
 UBOOT_CONFIG_DEFAULT ?= "${UBOOT_CONFIG}"
 
+UBOOT_INITIAL_ENV = ""
+
 UBOOT_CONFIG[iq-9075-evk] = "qcom_lemans_defconfig"
 UBOOT_CONFIG[qcs615-ride] = "qcom_qcs615_defconfig"
 UBOOT_CONFIG[qcs6490-rb3gen2] = "qcm6490_defconfig"
