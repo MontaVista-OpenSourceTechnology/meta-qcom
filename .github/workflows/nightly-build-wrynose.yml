@@ -1,4 +1,4 @@
-name: Nightly Build (wrynose)
+name: Nightly Build Dispatcher (wrynose)
 
 on:
   schedule:
@@ -12,43 +12,14 @@ permissions:
   pull-requests: write
   contents: read
   packages: read
+  actions: write
 
 jobs:
-  # Resolve wrynose to a single SHA so all downstream jobs build the same commit,
-  # and so test results are attributed to the correct wrynose commit (not master's
-  # github.sha, which is what scheduled workflows expose by default).
-  resolve-ref:
+  trigger-build:
     runs-on: ubuntu-latest
-    outputs:
-      sha: ${{ steps.get-sha.outputs.sha }}
     steps:
-      - name: Resolve wrynose SHA
-        id: get-sha
+      - name: Trigger Nightly Build
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          SHA=$(gh api repos/${{ github.repository }}/git/ref/heads/wrynose --jq '.object.sha')
-          echo "sha=$SHA" >> $GITHUB_OUTPUT
-
-  build-nightly:
-    needs: resolve-ref
-    uses: ./.github/workflows/build-yocto.yml
-    with:
-      git_ref: ${{ needs.resolve-ref.outputs.sha }}
-
-  test-nightly:
-    uses: ./.github/workflows/test.yml
-    needs: [resolve-ref, build-nightly]
-    secrets: inherit
-    with:
-      build_id: ${{ github.run_id }}
-
-  publish-test-results:
-    uses: ./.github/workflows/publish-results.yml
-    needs: [resolve-ref, test-nightly]
-    secrets: inherit
-    with:
-      workflow_id: ${{ github.run_id }}
-      event_name: ${{ github.event_name }}
-      event_file: ${{ github.event_path }}
-      commit: ${{ needs.resolve-ref.outputs.sha }}
+          gh workflow run --repo ${{ github.repository }} --ref wrynose nightly-build.yml
