@@ -13,15 +13,18 @@ LICENSE = " \
 LIC_FILES_CHKSUM = "\
     file://LICENSE.qcom;md5=56e86b6c508490dadc343f39468b5f5e \
     file://LICENSE.qcom-2;md5=165287851294f2fb8ac8cbc5e24b02b0 \
-    file://WHENCE;md5=0bd9f6b084039733e6eb31a250ccc6fe \
+    file://WHENCE;md5=9603239eb0b1d63311cde830244d2d3f \
     file://conf.d/hexagon-dsp-binaries-qualcomm-iq9075-evk.yaml;endline=2;md5=077232564320a8fce4ea446daad3d726 \
 "
 NO_GENERIC_LICENSE[dspso-qcom] = "LICENSE.qcom"
 NO_GENERIC_LICENSE[dspso-qcom-2] = "LICENSE.qcom-2"
 NO_GENERIC_LICENSE[dspso-WHENCE] = "WHENCE"
 
+PATCHTOOL = "git"
+
 SRC_URI = " \
     git://github.com/linux-msm/dsp-binaries;protocol=https;branch=trunk;tag=${PV} \
+    file://0001-qcm6490-update-dynamic-dsp-modules-for-RB3gen2-QCM64.patch \
 "
 
 SRCREV = "251d038e2c2fef7e0f58060177f8ddd669afa012"
