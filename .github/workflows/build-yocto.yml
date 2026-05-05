@@ -44,7 +44,6 @@ jobs:
           ref: ${{ inputs.git_ref }}
 
       - name: Run kas lock
-        if: ${{ hashFiles('ci/base.lock.yml') == '' }}
         run: |
           ${KAS_CONTAINER} lock ci/base.yml:ci/qcom-distro.yml
 
