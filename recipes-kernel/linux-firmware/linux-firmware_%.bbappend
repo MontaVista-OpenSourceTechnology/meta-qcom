@@ -1,4 +1,10 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+
+WHENCE_CHKSUM:qcom = "a863e73571de5c408581fd0303600044"
+
+PATCHTOOL:qcom = "git"
+
+SRC_URI:append:qcom = " file://0001-qcom-Update-ADSP-firmware-for-QCM6490-platform.patch "
 # To make the layer pass yocto-check-layer only inherit update-alternatives when building for qualcomm
 ALTERNATIVES_CLASS = ""
 ALTERNATIVES_CLASS:qcom = "update-alternatives"
