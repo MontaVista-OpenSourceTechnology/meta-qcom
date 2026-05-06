@@ -7,10 +7,6 @@ on:
         required: false
         type: string
         default: "full" # values: pr | full
-      git_ref:
-        required: false
-        type: string
-        default: ""
     outputs:
       artifacts_url:
         description: "URL to retrieve build artifacts"
@@ -41,7 +37,6 @@ jobs:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
-          ref: ${{ inputs.git_ref }}
 
       - name: Run kas lock
         if: ${{ hashFiles('ci/base.lock.yml') == '' }}
@@ -68,7 +63,6 @@ jobs:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
-          ref: ${{ inputs.git_ref }}
 
       - name: Download kas lockfile
         uses: actions/download-artifact@v7
@@ -121,7 +115,6 @@ jobs:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
-          ref: ${{ inputs.git_ref }}
 
       - name: Run kas build
         uses: ./.github/actions/compile
@@ -308,7 +301,6 @@ jobs:
         uses: actions/checkout@v6
         with:
           persist-credentials: false
-          ref: ${{ inputs.git_ref }}
 
       - name: Run kas build
         if: inputs.profile != 'pr' || (matrix.distro.name != 'debug' && matrix.distro.name != 'performance')
@@ -330,7 +322,6 @@ jobs:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
-          ref: ${{ inputs.git_ref }}
 
       - uses: ./.github/actions/print-build-output
         with:
