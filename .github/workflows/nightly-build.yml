@@ -18,15 +18,20 @@ permissions:
 jobs:
   build-nightly:
     uses: ./.github/workflows/build-yocto.yml
+    with:
+      skip_if_github_cached: true
+    secrets: inherit
   test-nightly:
+    if: needs.build-nightly.outputs.build_skipped != 'true'
     uses: ./.github/workflows/test.yml
     needs: build-nightly
     secrets: inherit
     with:
       build_id: ${{ github.run_id }}
   publish-test-results:
+    if: needs.build-nightly.outputs.build_skipped != 'true'
     uses: ./.github/workflows/publish-results.yml
-    needs: test-nightly
+    needs: [build-nightly, test-nightly]
     secrets: inherit
     with:
       workflow_id: ${{ github.run_id }}
