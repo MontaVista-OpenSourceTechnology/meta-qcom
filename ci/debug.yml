@@ -4,3 +4,5 @@ header:
 local_conf_header:
   debug-build: |
     DEBUG_BUILD = "1"
+    IMAGE_GEN_DEBUGFS = "1"
+    IMAGE_FSTYPES_DEBUGFS = "tar.bz2"
