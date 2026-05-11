@@ -26,7 +26,6 @@ repos:
 
   meta-virtualization:
     url: https://git.yoctoproject.org/git/meta-virtualization
-    branch: master
 
   meta-audioreach:
     url: https://github.com/AudioReach/meta-audioreach
