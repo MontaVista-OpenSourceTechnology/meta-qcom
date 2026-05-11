@@ -12,7 +12,7 @@ Qualcomm platforms.
 
 This layer depends on:
 
-```
+```text
 URI: https://github.com/openembedded/openembedded-core.git
 layers: meta
 branch: master
@@ -21,7 +21,7 @@ revision: HEAD
 
 This layer has an optional dependency on meta-oe layer:
 
-```
+```text
 URI: https://github.com/openembedded/meta-openembedded.git
 layers: meta-oe
 branch: master
@@ -37,7 +37,7 @@ for the implementation details.
 
 - **master:** Primary development branch, with focus on upstream support and
   compatibility with the most recent Yocto Project release.
-- **all stable branch up until styhead:** Legacy branches maintained by Linaro,
+- **all stable branches up until styhead:** Legacy branches maintained by Linaro,
   prior to the migration to [Qualcomm-linux](https://github.com/qualcomm-linux).
 
 ## Machine Support
@@ -48,7 +48,7 @@ See `conf/machine` for the complete list of supported devices.
 
 All contemporary boards are supported by a single qcom-armv8a machine. It can be
 used instead of using the per-board configuration file. In order to enable
-support for the particular device extend the qcom-armv8a.conf file .
+support for the particular device extend the qcom-armv8a.conf file.
 
 ## Quick build
 
@@ -61,19 +61,19 @@ an easy way to setup bitbake based projects. For more details, visit the
 
 1. Install kas tool
 
-    ```
+    ```bash
     sudo pip3 install kas
     ```
 
 2. Clone meta-qcom layer
 
-    ```
+    ```bash
     git clone https://github.com/qualcomm-linux/meta-qcom.git -b master
     ```
 
 3. Build using the KAS configuration for one of the supported boards
 
-    ```
+    ```bash
     kas build meta-qcom/ci/rb3gen2-core-kit.yml
     ```
 
@@ -83,31 +83,31 @@ For a manual build without KAS, refer to the [Yocto Project Quick Build](https:/
 
 ### Build QDL tool
 
-QDL tool communicates with USB devices of PID:VID `05c6:9008` and uploads a
+QDL tool communicates with USB devices of VID:PID `05c6:9008` and uploads a
 flash loader, which is then used for flashing images. Follow the steps below
 to download and compile QDL for your platform:
 
 1. Clone the QDL repository:
 
-   ```
+   ```bash
    git clone https://github.com/linux-msm/qdl
    ```
 
 2. Read the README and install build dependencies (`libxml2-dev` and
    `libusb-1.0-0-dev`). On Debian-based distribution run:
 
-   ```
+   ```bash
    sudo apt install libxml2-dev libusb-1.0-0-dev
    ```
 
 3. Build the QDL tool using make:
 
-   ```
+   ```bash
    cd qdl
    make
    ```
 
-As QDL tool requires raw USB access, so to able to run it from non-root user
+As QDL tool requires raw USB access, to be able to run it as a non-root user
 create an appropriate `udev` rule by following steps described in
 [Update udev rules](https://docs.qualcomm.com/bundle/publicresource/topics/80-70014-254/flash_images_unregistered.html#update-udev-rules)
 
@@ -130,15 +130,15 @@ Make sure that ModemManager is not running, disable it if necessary.
 1. Connect the micro USB debug cable to the host. Baud rate should be `115200`.
    Check in `dmesg` how UART shows up (e.g. `/dev/ttyUSB0`):
 
-   ```
+   ```console
    $ sudo dmesg | grep tty
    [217664.921039] usb 3-1.1.4: FTDI Serial Device converter attached to ttyUSB0
    ```
 
-2. Use your favorite serial comminication program to access the console, such
+2. Use your favorite serial communication program to access the console, such
    as minicom, picocom, putty etc. Baud rate should be 115200:
 
-   ```
+   ```bash
    picocom -b 115200 /dev/ttyUSB0
    ```
 
@@ -146,7 +146,7 @@ Make sure that ModemManager is not running, disable it if necessary.
 
 4. Use the QDL tool (built in the previous section) to flash the images:
 
-   ```
+   ```bash
    cd build/tmp/deploy/images/rb3gen2-core-kit/core-image-base-rb3gen2-core-kit.rootfs.qcomflash
    qdl --debug prog_firehose_ddr.elf rawprogram*.xml patch*.xml
    ```
@@ -154,7 +154,7 @@ Make sure that ModemManager is not running, disable it if necessary.
    If you have multiple boards connected the host, provide the serial
    number of the board to flash through `--serial` param:
 
-   ```
+   ```bash
    qdl --serial=0AA94EFD --debug prog_firehose_ddr.elf rawprogram*.xml patch*.xml
    ```
 
@@ -164,7 +164,7 @@ Make sure that ModemManager is not running, disable it if necessary.
    (please refer to Quick Start Guide for your board). The process of
    flashing should start automatically:
 
-   ```
+   ```text
    USB: using out-chunk-size of 1048576
    HELLO version: 0x2 compatible: 0x1 max_len: 1024 mode: 0
    READ64 image: 13 offset: 0x0 length: 0x40
@@ -181,8 +181,8 @@ For some useful guidelines when submitting patches, please refer to:
 
 Pull requests will be discussed within the GitHub pull-request infrastructure.
 
-Branch **kirkstone** is not open for direct contributions, please raise an issue
-with the suggested change instead.
+Branch **kirkstone** is not open for direct contributions, please raise an
+issue with the suggested change instead.
 
 ### Qualcomm Internal
 
@@ -195,13 +195,13 @@ Please make sure to visit go/GitHubBasicsDoc and go/OSSBestPractices before prop
 
 ## Maintainer(s)
 
-* Anuj Mittal <anuj.mittal@oss.qualcomm.com>
-* Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-* Koen Kooi <koen.kooi@oss.qualcomm.com>
-* Nicolas Dechesne <nicolas.dechesne@oss.qualcomm.com>
-* Ricardo Salveti <ricardo.salveti@oss.qualcomm.com>
-* Sourabh Banerjee <sbanerje@qti.qualcomm.com>
-* Viswanath Kraleti <viswanath.kraleti@oss.qualcomm.com>
+- Anuj Mittal <anuj.mittal@oss.qualcomm.com>
+- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+- Koen Kooi <koen.kooi@oss.qualcomm.com>
+- Nicolas Dechesne <nicolas.dechesne@oss.qualcomm.com>
+- Ricardo Salveti <ricardo.salveti@oss.qualcomm.com>
+- Sourabh Banerjee <sbanerje@qti.qualcomm.com>
+- Viswanath Kraleti <viswanath.kraleti@oss.qualcomm.com>
 
 ## License
 
