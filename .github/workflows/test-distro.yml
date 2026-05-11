@@ -24,6 +24,14 @@ on:
         required: false
         type: string
         description: "Suffix for the distro name"
+      lava_test_plans_ref:
+        type: string
+        description: "Ref in lava-test-plans repository: commit, tag or branch"
+        required: true
+      project_name:
+        required: true
+        type: string
+        description: "Name of the project in lava-test-plans"
     outputs:
       summary_id:
         description: "ID of the test summary artifact"
@@ -51,8 +59,9 @@ jobs:
           build_id: ${{ inputs.build_id }}
           gh_token: ${{ secrets.GITHUB_TOKEN }}
           prefix: boottest
-          project: "meta-qcom"
+          project: ${{ inputs.project_name }}
           testplan: "${{ inputs.distro_name }}/boot"
+          ref: ${{ inputs.lava_test_plans_ref }}
 
       - name: Print output ID
         env:
@@ -86,7 +95,7 @@ jobs:
         # of devices
         timeout-minutes: 120
         id: submit
-        uses: foundriesio/lava-action@v12
+        uses: foundriesio/lava-action@v13
         with:
           lava_token: ${{ secrets.LAVATOKEN }}
           lava_url: 'lava.infra.foundries.io'
@@ -174,8 +183,9 @@ jobs:
           build_id: ${{ inputs.build_id }}
           gh_token: ${{ secrets.GITHUB_TOKEN }}
           prefix: premerge
-          project: "meta-qcom"
+          project: ${{ inputs.project_name }}
           testplan: "${{ inputs.distro_name }}/pre-merge"
+          ref: ${{ inputs.lava_test_plans_ref }}
 
       - name: Print output ID
         env:
@@ -203,7 +213,7 @@ jobs:
         # It may spend some time in LAVA queue as there is a limited number
         # of devices
         timeout-minutes: 120
-        uses: foundriesio/lava-action@v12
+        uses: foundriesio/lava-action@v13
         with:
           lava_token: ${{ secrets.LAVATOKEN }}
           lava_url: 'lava.infra.foundries.io'

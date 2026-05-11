@@ -10,17 +10,34 @@ on:
       summary_ids:
         description: "IDs of the test summary artifact"
         value: ${{ jobs.collect-ids.outputs.summary_ids }}
+env:
+  # git sha, tag or branch in lava-test-plans repository
+  LAVA_TEST_PLANS_REF: "b9de72b563d8b361b39075c6070d76010040660e"
 
 jobs:
+  prepare-env:
+    name: Prepare environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Print ref"
+        shell: bash
+        run: |
+          echo "lava-test-plans ref: ${{ env.LAVA_TEST_PLANS_REF }}"
+    outputs:
+      lava-test-plans-ref: "${{ env.LAVA_TEST_PLANS_REF }}"
   test-nodistro:
+    needs: [prepare-env]
     name: "Test nodistro"
     uses: ./.github/workflows/test-distro.yml
     secrets: inherit
     with:
       build_id: "${{ inputs.build_id }}"
       devices: "iq-8275-evk,iq-9075-evk,qcm6490-idp,qcs615-ride,rb3gen2-core-kit,qcs8300-ride-sx,qcs9100-ride-sx,dragonboard-410c,dragonboard-820c,rb1-core-kit"
+      project_name: "meta-qcom"
       distro_name: "nodistro"
+      lava_test_plans_ref: "${{ needs.prepare-env.outputs.lava-test-plans-ref }}"
   test-qcom-distro:
+    needs: [prepare-env]
     name: "Test qcom-distro"
     uses: ./.github/workflows/test-distro.yml
     secrets: inherit
@@ -28,8 +45,11 @@ jobs:
       build_id: "${{ inputs.build_id }}"
       devices: "glymur-crd,iq-8275-evk,iq-9075-evk,qcm6490-idp,qcs615-ride,rb3gen2-core-kit,qcs8300-ride-sx,qcs9100-ride-sx,rb1-core-kit"
       devices_premerge: "glymur-crd,iq-8275-evk,iq-9075-evk,qcm6490-idp,qcs615-ride,rb3gen2-core-kit,qcs8300-ride-sx,qcs9100-ride-sx,rb1-core-kit"
+      project_name: "meta-qcom"
       distro_name: "qcom-distro"
+      lava_test_plans_ref: "${{ needs.prepare-env.outputs.lava-test-plans-ref }}"
   test-qcom-distro_linux-qcom-6-18:
+    needs: [prepare-env]
     name: "Test qcom-distro_linux-qcom-6.18"
     uses: ./.github/workflows/test-distro.yml
     secrets: inherit
@@ -37,8 +57,10 @@ jobs:
       build_id: "${{ inputs.build_id }}"
       devices: "iq-8275-evk,iq-9075-evk,qcm6490-idp,qcs615-ride,rb3gen2-core-kit,qcs8300-ride-sx,qcs9100-ride-sx,rb1-core-kit"
       devices_premerge: "iq-8275-evk,iq-9075-evk,qcm6490-idp,qcs615-ride,rb3gen2-core-kit,qcs8300-ride-sx,qcs9100-ride-sx,rb1-core-kit"
+      project_name: "meta-qcom"
       distro_name: "qcom-distro"
       distro_suffix: "_linux-qcom-6.18"
+      lava_test_plans_ref: "${{ needs.prepare-env.outputs.lava-test-plans-ref }}"
 
   collect-ids:
     name: "Collect Summary artifact IDs"
